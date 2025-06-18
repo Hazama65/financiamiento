@@ -26,6 +26,7 @@ os.environ["AWS_SECRET_ACCESS_KEY"] = "wNxI3ms+pwl0mP8R5jBa1BNI9vvmdOU6WiQ0QXID"
 
 # Load data once--------------------------
 logging.info('Cargando información ...')
+# Seccion de carga de datos por medio de postgres
 
 
 def cargar_datos_desde_postgres():
