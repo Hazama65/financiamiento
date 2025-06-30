@@ -1,5 +1,5 @@
 from pandas_nql import SqlGeneratorBase
-from pandas_nql import BedrockApiClient
+from pandas_nql.bedrock_client import BedrockApiClient
 import datetime
 
 
@@ -44,7 +44,7 @@ Rules:
 - When a count is requested on columns like 'rechazo', only values that are not NULL and not equal to 0 should be counted.
 - Region expressions such as 'MR0#' (where # can be 1, 3, 5, 7, or 9) must be matched when the user refers to a region using natural formats like 'RG#', 'RG0#', 'R#', 'Región #', or 'Reg #'. Normalize the region filter by converting user input to match the 'MR0#' format accordingly. All region filters must be case-insensitive and accent-insensitive.
 - Do NOT write any explanation or additional text, only return the SQL query.
-
+- 
 """
 
 

@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:15.7
+    container_name: financiamiento
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=Financiamiento
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
