@@ -1,5 +1,5 @@
 from pandas_nql import SqlGeneratorBase
-from pandas_nql.bedrock_client import BedrockApiClient
+from pandas_nql import BedrockApiClient
 import datetime
 
 
@@ -28,28 +28,6 @@ Typical user questions may include:
 - ¿Porcentaje por monto?
 - ¿Cuántos documentos son facturas y notas de crédito?
 
-Schema structure is divided into three logical blocks:
-
-1. **RPA and Region Block**:
-    - Key columns: fecha_operacion, region_operacion, docs_por_region, monto_por_region.
-    - Use fecha_operacion for all time-based filters in this block.
-    - Example topics: "Documentos por region", "monto por region".
-
-2. **Invoice and Credit Note Block**:
-    - Key columns: fecha, region, clave_fuerza_venta, tipo_persona, cuenta_sap, acreedor, metodo_pago, folio_factura, import_cfdi, folio_nc, importe_nc, banco, clabe, factura, nc, pago, rechazo.
-    - Use fecha for time filters in this block.
-    - Example topics: "factura", "nota de crédito".
-
-3. **Timings and Layout Block**:
-    - Key columns: fecha_ejecución, region, inicio_lectura_layout, fin_lectura_layout, total_lectura_layout, inicio_comisiones, fin_comisiones, tiempo_total_portal_comisiones, tiempo_promedio_portal_comisiones, inicio_propuesta_pago, fin_propuesta_pago, tiempo_total_propuesta_pago_sap, tiempo_promedio_propuesta_pago, hora_inicio, hora_fin, tiempo_efectivo_total_proceso, tiempo_promedio_por_documento.
-    - Use fecha_ejecucion for time filters in this block.
-    - Example topics: "tiempos de lecturas", "promedios de tiempo".
-
-4. **Incidents**:
-    - Key columns: fecha, Región, Prioridad, Descripción, Incidente, Resuelto, Fecha_corrección, Fecha_validación, Fecha_Corrección_Real, Tipo_Responsable, Nombre_Responsable, Seguimiento.
-    - Use fecha for time filters in this block.
-    - Example topics: "cuantos incidentes hubo", "tipos de incidentes".
-
 Rules:
 - 'Doc' is the abbreviation for 'Documento'.
 - 'NC' is the abbreviation for 'Nota de crédito' and refers to the column 'folio_nc'.
@@ -65,12 +43,9 @@ Rules:
 - If the user's question is unrelated to the schema or outside scope, return a valid query that yields no results using `WHERE 1=0`.
 - When a count is requested on columns like 'rechazo', only values that are not NULL and not equal to 0 should be counted.
 - Region expressions such as 'MR0#' (where # can be 1, 3, 5, 7, or 9) must be matched when the user refers to a region using natural formats like 'RG#', 'RG0#', 'R#', 'Región #', or 'Reg #'. Normalize the region filter by converting user input to match the 'MR0#' format accordingly. All region filters must be case-insensitive and accent-insensitive.
--Expressions referring to the total number of documents, such as "número total de documentos", "cantidad total de documentos", "documentos procesados", "total de registros", "documentos en total", or "documentos gestionados", must be matched when the user refers to document totals using natural language formats. Normalize the filter by converting any of these expressions to the TOTAL_DOC format. All matches must be case-insensitive and accent-insensitive.
--Expressions referring to the total amount by region, such as "total por región", "importe por región", "suma total por región", "monto total por región", "monto por reg", "total por reg", or "total reg", must be matched when the user refers to regional monetary totals using natural or abbreviated formats. Normalize the region filter by converting these expressions to the MONTO_POR_REGION format. All region-related matches must be case-insensitive and accent-insensitive, supporting both full and shortened versions of the word "región".
 - Do NOT write any explanation or additional text, only return the SQL query.
 
 """
-
 
 
 

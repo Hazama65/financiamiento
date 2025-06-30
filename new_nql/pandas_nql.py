@@ -1,11 +1,11 @@
 import pandas as pd
 import duckdb
-from pandas_nql.sql_generator_base import SqlGeneratorBase
-from pandas_nql.openai_sql_generator import OpenAISqlGenerator
-from pandas_nql.bedrock_sql_generator import BedrockSqlGenerator
-from pandas_nql.schema_string_builder_base import SchemaStringBuilderBase
-from pandas_nql.bedrock_sql_generator import BedrockResponseGenerator
-from pandas_nql.sql_schema_string_builder import SqlSchemaStringBuilder
+from pandas_nql import SqlGeneratorBase, \
+                        OpenAISqlGenerator, \
+                        BedrockSqlGenerator, \
+                        SchemaStringBuilderBase, \
+                        BedrockResponseGenerator, \
+                        SqlSchemaStringBuilder
 
 TEMP_VIEW_NAME = "data_view"
 DEFAULT_MAX_RETRIES = 3
